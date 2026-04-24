@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Progress Tracker</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header>
+        <a href="../index.html" class="logo">
+            <img src="../JD_logo.png" alt="Juris Drive logo" class="pic">
+        </a>
+        <div class="text">
+            <h1>Progress Tracker</h1>
+            <p>Track the major components of your law school application process!</p>
+        </div>
+    </header>
+    <nav>
+        <a href="../index.html">Home</a>
+        <a href="tracker.html">Progress Tracker</a>
+        <a href="library.html">Resource Library</a>
+        <a href="strategy.html">Strategy</a>
+    </nav>
+    <main>
+        <section class="box">
+            <h2>Application Checklist</h2>
+
+            <div class="progress">
+                <p id="progresstext">0% Complete - Start your Journey!</p>
+                <div class="bar">
+                    <div class="fill" id="progress"></div>
+                </div>
+            </div>
+
+            <div class="item">
+                <input type="checkbox" id="task1">
+                <label for="task1">Learn the basics of the law school admissions process</label>
+            </div>
+
+            <div class="item">
+                <input type="checkbox" id="task2">
+                <label for="task2">Start LSAT preparation</label>
+            </div>
+
+            <div class="item">
+                <input type="checkbox" id="task3">
+                <label for="task3">Research law schools</label>
+            </div>
+
+            <div class="item">
+                <input type="checkbox" id="task4">
+                <label for="task4">Prepare application materials</label>
+            </div>
+
+            <div class="item">
+                <input type="checkbox" id="task5">
+                <label for="task5">Submit applications</label>
+            </div>
+        </section>
+        <section class="box">
+            <h2>Application Timeline</h2>
+            <label for="weeksaway">Weeks away from first application submission:</label>
+            <input type="number" id="weeksaway" min="0" placeholder="Enter number of weeks">
+            <button id="timebutton">Show My Timeline Stage</button>
+            <div class="time">
+                <h3>Recommended Focus</h3>
+                <p id="timemessage">Enter your timeline to see what you should be focusing on!</p>
+            </div>
+        </section>
+        <section class="box">
+            <h2>Reminder</h2>
+            <p>
+        Everyone is on their own application journey! If you feel you cannot complete an application step in time, 
+        or aren't confident in your preparation, it is okay to delay your application and wait until next cycle. 
+        Many applicants do this to ensure their application is perfect when they are ready!
+            </p>
+        </section>
+    </main>
+    <footer>
+        <p>Juris Drive Capstone Project</p>
+    </footer>
+    <script>
+        let checkboxes= document.querySelectorAll("input[type='checkbox']")
+        let progress= document.getElementById("progress")
+        let progresstext= document.getElementById("progresstext")
+        let weeksaway= document.getElementById("weeksaway")
+        let timebutton= document.getElementById("timebutton")
+        let timemessage= document.getElementById("timemessage")
+
+        function progressbar() {
+            let checkedCount= 0;
+            checkboxes.forEach(function(box) {
+                if (box.checked) {
+                    checkedCount++;
+                }
+            });
+
+            let percent= Math.round((checkedCount/checkboxes.length) * 100);
+            let message= "";
+
+            if (percent === 0) {
+            message= "0% Complete - Your journey begins";
+            }else if (percent <= 25) {
+            message= percent + "% Complete - Getting started";
+            }else if (percent <= 50) {
+            message= percent + "% Complete - Making progress";
+            }else if (percent <= 75) {
+            message= percent + "% Complete - More than halfway there";
+            }else if (percent < 100) {
+            message= percent + "% Complete - Almost done";
+            }else {
+            message= "100% Complete - Application journey complete";
+            }
+            progress.style.width= percent + "%";
+            progresstext.textContent= message;
+        }
+
+        function loadTracker() {
+            checkboxes.forEach(function(box) {
+                let value= localStorage.getItem(box.id);
+
+                if (value === "true"){
+                    box.checked= true;
+                }
+            });
+
+            let savedweeks= localStorage.getItem("weeksaway");
+            let savedtimemessage= localStorage.getItem("timemessage");
+
+            if (savedweeks !== null) {
+            weeksaway.value= savedweeks;
+            }
+
+            if (savedtimemessage !== null) {
+            timemessage.textContent= savedtimemessage;
+            }
+
+            progressbar();
+        }
+
+        function timeline() {
+            let weeks= Number(weeksaway.value);
+            let message= "";
+
+            if (weeksaway.value === "" || isNaN(weeks)) {
+            message= "Enter the correct amount of weeks away you are from your first submission!";
+            }else if (weeks >= 40) {
+            message= "You are very early in the process. But it is never too early to start LSAT studying!";
+            }else if (weeks >= 28) {
+            message= "You should be studying for the LSAT and following a regimented schedule.";
+            }else if (weeks >= 12) {
+            message= "You should be signing up for an LSAT test and beginning work on application materials.";
+            }else if (weeks >= 4) {
+            message= "Application season is approaching. Focus on polishing materials, creating a list of schools to apply to, and preparing to submit.";
+            }else if (weeks >= 0) {
+            message= "Almost time to submit! Prioritize final edits, required documents, and sending applications in an organized way.";
+            }else {
+            message= "Enter the correct amount of weeks away you are from your first submission!";
+            }
+
+            timemessage.textContent= message;
+            localStorage.setItem("weeksaway", weeksaway.value);
+            localStorage.setItem("timemessage", message);
+        }
+
+        checkboxes.forEach(function(box) {
+        box.addEventListener("change", function() {
+        localStorage.setItem(box.id, box.checked);
+        progressbar();
+        });
+        });
+        timebutton.addEventListener("click", timeline);
+        loadTracker();
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Juris Drive</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <a href="index.html" class="logo">
+        <img src="JD_logo.png" alt="Juris Drive logo" class="pic">
+    </a>
+    <div class="text">
+        <h1>Juris Drive</h1>
+        <p>The ultimate guide to the law school admissions process!</p>
+    </div>
+</header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="pages/tracker.html">Progress Tracker</a>
+        <a href="pages/library.html">Resource Library</a>
+        <a href="pages/strategy.html">Strategy</a>
+    </nav>
+    <main>
+        <section class="hero">
+            <h2>Your future law school is waiting for you!</h2>
+            <p>Juris Drive is here to help applicants stay organized, follow a plan, and keep track of every aspect in your law school journey.</p>
+        </section>
+
+        <section class="setup">
+            <h2>Please make a profile with us!</h2>
+
+            <label for="username">Name:</label>
+            <input type="text" id="username">
+
+            <label for="userstage">Current Stage in your admissions journey:</label>
+            <select id="userstage">
+                <option value="Getting Started">Just Getting Started</option>
+                <option value="Studying for the LSAT">Studying for the LSAT</option>
+                <option value="Researching Schools">Researching Schools</option>
+                <option value="Preparing Applications">Preparing Applications</option>
+            </select>
+
+            <button id="saveProfile">Save Profile</button>
+
+            <div class="output">
+                <h3>Welcome, <span id="displayname">Applicant</span>!</h3>
+                <p>Current stage: <span id="displaystage">Getting Started</span></p>
+            </div>
+        </section>
+
+        <section class="box">
+            <h2>Main Sections</h2>
+            <div class="cards">
+                <a href="pages/tracker.html" class="link">
+                    <div class="card">
+                        <h3>Progress Tracker</h3>
+                        <p>Click to keep track of your law school admissions process!</p>
+                    </div>
+                </a>
+
+                <a href="pages/library.html" class="link">
+                    <div class="card">
+                        <h3>Resource Library</h3>
+                        <p>Click to explore common admissions terminology and to grow your understanding of the overall process!</p>
+                    </div>
+                </a>
+
+                <a href="pages/strategy.html" class="link">
+                    <div class="card">
+                        <h3>Strategy</h3>
+                        <p>Click to read about the step by step process that will make your application perfect!</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>Juris Drive Capstone Project</p>
+        <p>Van Edmundson</p>
+        <p>Spring 2026</p>
+        <p>APCV 498</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
